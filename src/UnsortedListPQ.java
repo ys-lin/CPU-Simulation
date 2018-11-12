@@ -1,5 +1,29 @@
 
-public class UnsortedListPQ<T> {
-// First-Come-First-Served (FCFS)if currentPriority is the same for 2 jobs
-//after 30 processes terminated, check for oldest job that has never been executed,set priority=1
+public class UnsortedListPQ<T> implements PriorityQueue<T>{
+	int key;
+	T value;
+	
+public void insert(int key, T value) {
+		
+	}
+
+	
+	public void removeMin() {
+		
+	}
+
+	
+	public int min() {
+		return 0;
+	}
+
+
+	public int size() {
+		return 0;
+	}
+
+	
+	public int isEmpty() {
+		return 0;
+	}
 }
