@@ -36,7 +36,7 @@ public class PriorityQueueSimulatorTester {
 		Job[] arr=new Job[maxJobNum+1];
 		//from i=1 to maxJobNum
 		for(int i=1;i<=maxJobNum;i++) {
-			arr[i]=new Job("Job_"+i,(int)(1+Math.random()*69),(int)(1+Math.random()*39));
+			arr[i]=new Job("Job_"+i,(int)(Math.random()*70+1),(int)(Math.random()*40+1));
 		}
 		return arr;
 	}
@@ -50,6 +50,7 @@ public class PriorityQueueSimulatorTester {
 			Timer.reset();
 			alPQ=new ALHeapPQ(jobInputArray);
 			System.out.println(alPQ);
+			
 			
 		}
 		

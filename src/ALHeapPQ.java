@@ -38,9 +38,9 @@ public class ALHeapPQ{
 	
 	public void heapify(Job[] arr, int parent) {
 		int child;
-		while(parent*2<arr.length) {
+		while(parent*2<numElements) {
 			//if right child exists
-			if(parent*2+1<arr.length) {
+			if(parent*2+1<numElements) {
 				//if right>left
 				if(isHigherPriority(arr[parent*2+1],arr[parent*2])) {
 					//child=right
@@ -81,7 +81,11 @@ public class ALHeapPQ{
 	}
 
 	public void removeMin() {
-	arrQueue[0]=arrQueue[numElements];
+	arrQueue[1]=arrQueue[numElements];
+	arrQueue[1].setKey(1);
+	arrQueue[numElements]=null;
+	numElements--;
+	heapify(arrQueue,1);
 	}
 
 	
