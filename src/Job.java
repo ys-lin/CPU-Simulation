@@ -1,23 +1,48 @@
 
 public class Job {
+private int key;
+public int getKey() {
+	return key;
+}
+
+public void setKey(int key) {
+	this.key = key;
+}
 private String jobName;
 private int jobLength;//between 1 and 70
 private int currentJobLength;
 private int jobPriority;//between 1 and 40
 private int finalPriority;
-private long entryTime;
-private long endTime;
-private long waitTime;
+private long entryTime=0;
+private long endTime=0;
+private long waitTime=0;
 
 public Job(String jobName, int jobLength, int jobPriority) {
 	this.jobName = jobName;
 	this.jobLength = jobLength;
+	currentJobLength=jobLength;
 	this.jobPriority = jobPriority;
-	this.entryTime = 0;
-	this.endTime=0;
-	this.waitTime=0;
+	finalPriority=jobPriority;
 }
 
+//Now executing " + jobName + ", jobLength=" + jobLength + " cycles, currentJobLength=" + currentJobLength + " cycles, Initial Priority=" + jobPriority + ", 
+public String toString() {
+	return "key: "+key+" time stamp: " + endTime+" current Priority=" + finalPriority+"\n";
+}
 
-
+public int getJP() {
+	return finalPriority;
+}
+public void setJP(int priority) {
+	finalPriority=priority;
+}
+public long getTime() {
+	return endTime;
+}
+public void setTime(long time) {
+	endTime=time;
+}
+public void setEntryTime(long time) {
+	entryTime=time;
+}
 }

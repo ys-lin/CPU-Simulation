@@ -1,9 +1,9 @@
 
-public class UnsortedListPQ<T> implements PriorityQueue<T>{
+public class UnsortedListPQ{
 	int key;
-	T value;
+	Job value;
 	
-public void insert(int key, T value) {
+public void insert(int key, Job value) {
 		
 	}
 

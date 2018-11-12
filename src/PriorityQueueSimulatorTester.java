@@ -1,7 +1,7 @@
+import java.util.Arrays;
 
 public class PriorityQueueSimulatorTester {
-//Now executing Job_285. Job length: 42 cycles; Current remaining length: 26 cycles;
-//Initial priority: 22; Current priority: 1 
+
 	
 	// First-Come-First-Served (FCFS)if currentPriority is the same for 2 jobs
 	
@@ -22,20 +22,21 @@ public class PriorityQueueSimulatorTester {
 	//Total number of priority changes: 17944 #to avoid starvation
 	//Actual system time needed to execute all jobs: 682.35 ms
 	
-	private static int currentTime;//counter: incremented by 1 each time a job
-								   //is inserted in the queue from the array
-								   //and each time an iteration
-							       //is made to search for the first starved process
+	
 	private static double start;
 	private static double end;
 	private static double runTime;
-	private static 	final int[]  maxNumberOfJobs = {100, 1000, 10000, 100000, 1000000};
+	private static ALHeapPQ alPQ;
+	private static 	final int[]  maxNumberOfJobs = {100};
+	//, 1000, 10000, 100000, 1000000
 	
 	
 	public static Job[] fillArray(int maxJobNum) {
-		Job[] arr=new Job[maxJobNum];
-		for(int i=0;i<maxJobNum;i++) {
-			arr[i]=new Job("Job_"+(i+1),(int)(1+Math.random()*69),(int)(1+Math.random()*39));	
+		//index 0 is left empty, thus jobNum+1
+		Job[] arr=new Job[maxJobNum+1];
+		//from i=1 to maxJobNum
+		for(int i=1;i<=maxJobNum;i++) {
+			arr[i]=new Job("Job_"+i,(int)(1+Math.random()*69),(int)(1+Math.random()*39));
 		}
 		return arr;
 	}
@@ -46,7 +47,10 @@ public class PriorityQueueSimulatorTester {
 		
 		for (int e : maxNumberOfJobs) {
 			Job[] jobInputArray=fillArray(e);
-				
+			Timer.reset();
+			alPQ=new ALHeapPQ(jobInputArray);
+			System.out.println(alPQ);
+			
 		}
 		
 		
