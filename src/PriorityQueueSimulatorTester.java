@@ -1,10 +1,14 @@
-import java.util.Arrays;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
+import java.io.Writer;
+
 
 public class PriorityQueueSimulatorTester {
 
-	
-	// First-Come-First-Served (FCFS)if currentPriority is the same for 2 jobs
-	
 	//current length of the job-- after each execution 
 	
 	//after 30 processes check oldest job that has never been executed,set priority=1
@@ -41,15 +45,38 @@ public class PriorityQueueSimulatorTester {
 		return arr;
 	}
 	
-	
+	public static void alExecute() {
+		Job j=alPQ.removeMin();
+		j.decLength();
+		Timer.inc(j);
+		if (j.getCurrentJobLength()>0) {
+			alPQ.insert(alPQ.size()+1, j);
+		}else {
+			j.jDone();
+			Timer.done();
+		}
+	}
 
+	public static void printReport(String file) {
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+	              new FileOutputStream(file+".txt"), "utf-8"))) {
+	   writer.write("something");
+	}catch(IOException e) {
+		e.getMessage();
+	}
+	}
 	public static void main(String[] args) {
 		
 		for (int e : maxNumberOfJobs) {
 			Job[] jobInputArray=fillArray(e);
 			Timer.reset();
 			alPQ=new ALHeapPQ(jobInputArray);
-			System.out.println(alPQ);
+			while(alPQ.size()!=0) {
+			alExecute();
+			if(Timer.getDone()%30==0) {
+				alPQ.noExecuted();
+			}
+			}
 			
 			
 		}

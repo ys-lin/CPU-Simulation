@@ -30,6 +30,22 @@ public String toString() {
 	return "key: "+key+" time stamp: " + endTime+" current Priority=" + finalPriority+"\n";
 }
 
+public int getCurrentJobLength() {
+	return currentJobLength;
+}
+
+public void decLength() {
+	currentJobLength--;
+}
+
+public int getJobLength() {
+	return jobLength;
+}
+
+public void setJobLength(int jobLength) {
+	this.jobLength = jobLength;
+}
+
 public int getJP() {
 	return finalPriority;
 }
@@ -44,5 +60,11 @@ public void setTime(long time) {
 }
 public void setEntryTime(long time) {
 	entryTime=time;
+}
+public void jDone() {
+	waitTime=endTime-entryTime-jobLength;
+}
+public long getWaitTime() {
+	return waitTime;
 }
 }
