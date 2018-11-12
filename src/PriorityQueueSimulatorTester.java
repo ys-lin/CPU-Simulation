@@ -46,7 +46,7 @@ public class PriorityQueueSimulatorTester {
 		
 		for (int e : maxNumberOfJobs) {
 			Job[] jobInputArray=fillArray(e);
-			
+				
 		}
 		
 		

@@ -8,9 +8,8 @@ private int finalPriority;
 private long entryTime;
 private long endTime;
 private long waitTime;
-//current length of the job-- after each execution 
+
 public Job(String jobName, int jobLength, int jobPriority) {
-	super();
 	this.jobName = jobName;
 	this.jobLength = jobLength;
 	this.jobPriority = jobPriority;
