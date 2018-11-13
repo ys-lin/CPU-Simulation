@@ -1,6 +1,7 @@
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
@@ -20,19 +21,14 @@ public class PriorityQueueSimulatorTester {
 	//if current length == 0, CPU  record  endTime, wait time
 	
 	
-	//Report: Current system time (cycles): 6239854
-	//Total number of jobs executed: 100000 jobs
-	//Average process waiting time: 2046204.3 cycles
-	//Total number of priority changes: 17944 #to avoid starvation
-	//Actual system time needed to execute all jobs: 682.35 ms
 	
 	
+	private static double totalWait;
 	private static double start;
 	private static double end;
-	private static double runTime;
 	private static ALHeapPQ alPQ;
-	private static 	final int[]  maxNumberOfJobs = {100};
-	//, 1000, 10000, 100000, 1000000
+	private static 	final int[]  maxNumberOfJobs = {100, 1000, 10000, 100000};
+	//
 	
 	
 	public static Job[] fillArray(int maxJobNum) {
@@ -53,17 +49,30 @@ public class PriorityQueueSimulatorTester {
 			alPQ.insert(alPQ.size()+1, j);
 		}else {
 			j.jDone();
+			totalWait=totalWait+j.getWaitTime();
 			Timer.done();
 		}
 	}
+	
+	
 
-	public static void printReport(String file) {
-		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-	              new FileOutputStream(file+".txt"), "utf-8"))) {
-	   writer.write("something");
+	public static void printReport(String file,int j,ALHeapPQ al) {
+		try (FileWriter writer = new FileWriter(file+".txt",true)) {
+	   writer.write("Current system time (cycles): " + Timer.get()+
+	   		"\nTotal number of jobs executed:" + j +
+	   		"\nAverage process waiting time: " + (totalWait/j)+
+	   		" cycles\nTotal number of priority changes: " + al.getchange()+
+	   		"\nActual system time needed to execute all jobs: "+(end-start)+"ms\n\n");
 	}catch(IOException e) {
 		e.getMessage();
 	}
+		
+	}
+	
+	public static void ini() {
+		start=0;
+		end=0;
+		totalWait=0;
 	}
 	public static void main(String[] args) {
 		
@@ -71,12 +80,15 @@ public class PriorityQueueSimulatorTester {
 			Job[] jobInputArray=fillArray(e);
 			Timer.reset();
 			alPQ=new ALHeapPQ(jobInputArray);
+			start=System.currentTimeMillis();
 			while(alPQ.size()!=0) {
 			alExecute();
 			if(Timer.getDone()%30==0) {
 				alPQ.noExecuted();
 			}
 			}
+			end=System.currentTimeMillis();
+			printReport("out",e,alPQ);
 			
 			
 		}

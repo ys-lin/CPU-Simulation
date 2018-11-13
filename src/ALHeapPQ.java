@@ -1,8 +1,13 @@
 import java.util.Arrays;
 
 public class ALHeapPQ{
+	private long priorityChange=0;
 	private Job[] arrQueue;
 	private int numElements=0;
+	
+	public long getchange() {
+		return priorityChange;
+	}
 	
 	
 	public ALHeapPQ(Job[]arr){
@@ -19,6 +24,7 @@ public class ALHeapPQ{
 			}
 		}
 		if(index!=-1) {
+			priorityChange++;
 			arrQueue[index].setJP(1);
 			upHeap(index);
 		}
