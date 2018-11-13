@@ -4,6 +4,14 @@ public class UnsortedListPQ{
 	private Job[] liQueue;
 	private int numElements=0;
 	
+	public UnsortedListPQ(Job[] j) {
+		liQueue=j;
+		numElements=j.length-1;
+		for(int i=1;i<=numElements;i++) {
+			Timer.inc(liQueue[i]);
+		}
+	}
+	
 	private boolean isHigherPriority(Job a, Job b) {
 		if(a.getJP()<b.getJP()) {
 			return true;
@@ -31,6 +39,10 @@ public void insert(int key, Job value) {
 			if(liQueue[i].getJP()<min) {
 				min=liQueue[i].getJP();
 				index=i;
+			}else if(liQueue[i].getJP()==min) {
+				if(liQueue[index].getTime()>liQueue[i].getTime()) {
+					index=i;
+				}
 			}
 		}
 		Job temp=liQueue[index];
@@ -41,7 +53,7 @@ public void insert(int key, Job value) {
 
 	
 	public int min() {
-		return 0;
+		return numElements;
 	}
 
 

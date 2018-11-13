@@ -14,6 +14,7 @@ public class PriorityQueueSimulatorTester {
 	private static double start;
 	private static double end;
 	private static ALHeapPQ alPQ;
+	private static UnsortedListPQ unsortL;
 	private static 	final int[]  maxNumberOfJobs = {100,1000,10000,100000};
 	
 	
@@ -42,6 +43,20 @@ public class PriorityQueueSimulatorTester {
 		}
 	}
 	
+public static void unsortExecute() {
+		
+		Job j=unsortL.removeMin();
+		j.decLength();
+		Timer.inc(j);
+		System.out.println(j);
+		if (j.getCurrentJobLength()>0) {
+			unsortL.insert(unsortL.size()+1, j);
+		}else {
+			j.jDone();
+			totalWait=totalWait+j.getWaitTime();
+			Timer.done();
+		}
+	}
 	
 
 	public static void printReport(String file,int j,ALHeapPQ al) {
@@ -78,8 +93,7 @@ public class PriorityQueueSimulatorTester {
 			}
 			end=System.currentTimeMillis();
 			printReport("out",e,alPQ);
-			
-			
+			ini();
 		}
 		
 		
