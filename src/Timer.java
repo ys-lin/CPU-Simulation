@@ -9,6 +9,9 @@ private static int jobDone;
 public static void done() {
 	jobDone++;
 }
+public static void resetDone() {
+	jobDone=0;
+}
 public static int getDone() {
 	return jobDone;
 }
