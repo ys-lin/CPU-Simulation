@@ -15,7 +15,7 @@ public class PriorityQueueSimulatorTester {
 	private static double end;
 	private static ALHeapPQ alPQ;
 	private static UnsortedListPQ unsortL;
-	private static 	final int[]  maxNumberOfJobs = {100,1000,10000,100000};
+	private static 	final int[]  maxNumberOfJobs = {100,1000,10000};
 	
 	
 	public static Job[] fillArray(int maxJobNum) {
@@ -58,6 +58,18 @@ public static void unsortExecute() {
 		}
 	}
 	
+public static void printUnReport(String file,int j,UnsortedListPQ al) {
+	try (FileWriter writer = new FileWriter(file+".txt",true)) {
+   writer.write("Current system time (cycles): " + Timer.get()+
+   		"\nTotal number of jobs executed:" + j +
+   		"\nAverage process waiting time: " + (totalWait/j)+
+   		" cycles\nTotal number of priority changes: " + al.getchange()+
+   		"\nActual system time needed to execute all jobs: "+(end-start)+"ms\n\n");
+}catch(IOException e) {
+	e.getMessage();
+}
+	
+}
 
 	public static void printReport(String file,int j,ALHeapPQ al) {
 		try (FileWriter writer = new FileWriter(file+".txt",true)) {
@@ -77,11 +89,13 @@ public static void unsortExecute() {
 		end=0;
 		totalWait=0;
 	}
+	
 	public static void main(String[] args) {
 		
 		for (int e : maxNumberOfJobs) {
 			Job[] jobInputArray=fillArray(e);
 			Timer.reset();
+			ini();
 			alPQ=new ALHeapPQ(jobInputArray);
 			start=System.currentTimeMillis();
 			while(alPQ.size()!=0) {
@@ -92,11 +106,29 @@ public static void unsortExecute() {
 			}
 			}
 			end=System.currentTimeMillis();
-			printReport("out",e,alPQ);
-			ini();
+			printReport("heapQueue",e,alPQ);
+			
 		}
-		
-		
+		System.out.println("---------------------------------------- Unsorted List Priority Queue-------------------------------------");
+
+		for(int e : maxNumberOfJobs) {
+
+			
+			Job[] jobInputArray=fillArray(e);
+			Timer.reset();
+			ini();
+			unsortL=new UnsortedListPQ(jobInputArray);
+			start=System.currentTimeMillis();
+			while(unsortL.size()!=0) {
+			unsortExecute();
+			if(Timer.getDone()!=0&&(Timer.getDone())%30==0) {
+				Timer.resetDone();
+				unsortL.noExecuted();
+			}
+			}
+			end=System.currentTimeMillis();
+			printUnReport("unsortedQueue",e,unsortL);
+		}
 		
 	}
 

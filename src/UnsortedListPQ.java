@@ -12,6 +12,27 @@ public class UnsortedListPQ{
 		}
 	}
 	
+	public void noExecuted() {
+		Timer.inc();
+		long oldest=Timer.get();
+		int index=-1;
+		for(int i=1;i<numElements;i++) {
+			if(liQueue[i].getCurrentJobLength()==liQueue[i].getJobLength())
+			if(liQueue[i].getTime() < oldest) {
+				oldest=liQueue[i].getTime();
+				index=i;
+			}
+		}
+		if(index!=-1) {
+			priorityChange++;
+			liQueue[index].setJP(1);
+		}
+	}
+	
+	public long getchange() {
+		return priorityChange;
+	}
+	
 	private boolean isHigherPriority(Job a, Job b) {
 		if(a.getJP()<b.getJP()) {
 			return true;
@@ -53,12 +74,22 @@ public void insert(int key, Job value) {
 
 	
 	public int min() {
-		return numElements;
+		int min=50;
+		int index=-1;
+		for(int i=1;i<=numElements;i++) {
+			if(liQueue[i].getJP()<min) {
+				min=liQueue[i].getJP();
+				index=i;
+			}
+			}
+	
+		
+		return index;
 	}
 
 
 	public int size() {
-		return 0;
+		return numElements;
 	}
 
 	
