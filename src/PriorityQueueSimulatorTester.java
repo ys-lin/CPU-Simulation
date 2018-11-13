@@ -27,7 +27,7 @@ public class PriorityQueueSimulatorTester {
 	private static double start;
 	private static double end;
 	private static ALHeapPQ alPQ;
-	private static 	final int[]  maxNumberOfJobs = {100, 1000, 10000, 100000};
+	private static 	final int[]  maxNumberOfJobs = {100};
 	//
 	
 	
@@ -42,9 +42,11 @@ public class PriorityQueueSimulatorTester {
 	}
 	
 	public static void alExecute() {
+		
 		Job j=alPQ.removeMin();
 		j.decLength();
 		Timer.inc(j);
+		System.out.println(j);
 		if (j.getCurrentJobLength()>0) {
 			alPQ.insert(alPQ.size()+1, j);
 		}else {
@@ -83,7 +85,7 @@ public class PriorityQueueSimulatorTester {
 			start=System.currentTimeMillis();
 			while(alPQ.size()!=0) {
 			alExecute();
-			if(Timer.getDone()%30==0) {
+			if(Timer.getDone()!=0&&(Timer.getDone())%30==0) {
 				alPQ.noExecuted();
 			}
 			}

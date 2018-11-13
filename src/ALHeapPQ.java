@@ -13,7 +13,9 @@ public class ALHeapPQ{
 	public ALHeapPQ(Job[]arr){
 		buildHeap(arr);
 	}
+	
 	public void noExecuted() {
+		Timer.inc();
 		long oldest=Timer.get();
 		int index=-1;
 		for(int i=1;i<numElements;i++) {

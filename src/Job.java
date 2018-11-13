@@ -25,9 +25,9 @@ public Job(String jobName, int jobLength, int jobPriority) {
 	finalPriority=jobPriority;
 }
 
-//Now executing " + jobName + ", jobLength=" + jobLength + " cycles, currentJobLength=" + currentJobLength + " cycles, Initial Priority=" + jobPriority + ", 
+
 public String toString() {
-	return "key: "+key+" time stamp: " + endTime+" current Priority=" + finalPriority+"\n";
+	return "Now executing " + jobName + ". job length: " + jobLength + " cycles; Current remaing length: "  + currentJobLength + "; Initial Priority: " + jobPriority + "; current Priority: " + finalPriority+"\n";
 }
 
 public int getCurrentJobLength() {
