@@ -1,13 +1,6 @@
 
 public class Job {
 private int key;
-public int getKey() {
-	return key;
-}
-
-public void setKey(int key) {
-	this.key = key;
-}
 private String jobName;
 private int jobLength;//between 1 and 70
 private int currentJobLength;
@@ -17,6 +10,13 @@ private long entryTime=0;
 private long endTime=0;
 private long waitTime=0;
 
+public int getKey() {
+	return key;
+}
+
+public void setKey(int key) {
+	this.key = key;
+}
 public Job(String jobName, int jobLength, int jobPriority) {
 	this.jobName = jobName;
 	this.jobLength = jobLength;
@@ -25,7 +25,16 @@ public Job(String jobName, int jobLength, int jobPriority) {
 	finalPriority=jobPriority;
 }
 
-
+public Job(Job j) {
+	jobName=j.jobName;
+	jobLength=j.jobLength;
+	currentJobLength=j.currentJobLength;
+	jobPriority=j.jobPriority;
+	finalPriority=j.finalPriority;
+	entryTime=j.entryTime;
+	endTime=j.endTime;
+	waitTime=j.waitTime;
+}
 public String toString() {
 	return "Now executing " + jobName + ". job length: " + jobLength + " cycles; Current remaing length: "  + currentJobLength + "; Initial Priority: " + jobPriority + "; current Priority: " + finalPriority+"\n";
 }

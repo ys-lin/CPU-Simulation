@@ -1,6 +1,0 @@
-Current system time (cycles): 3660452
-Total number of jobs executed:100000
-Average process waiting time: 1861580.40515 cycles
-Total number of priority changes: 3264
-Actual system time needed to execute all jobs: 315194.0ms
-

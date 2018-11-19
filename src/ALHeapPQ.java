@@ -1,6 +1,7 @@
 import java.util.Arrays;
 
 public class ALHeapPQ{
+	private Job[] timeRank;
 	private long priorityChange=0;
 	private Job[] arrQueue;
 	private int numElements=0;
@@ -47,6 +48,7 @@ public class ALHeapPQ{
 					Timer.inc(arr[i]);
 					arr[i].setEntryTime(Timer.get());
 					arr[i].setKey(i);
+					
 					heapify(arr,i);
 				}
 				arrQueue= arr;

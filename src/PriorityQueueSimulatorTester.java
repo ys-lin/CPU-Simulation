@@ -15,7 +15,7 @@ public class PriorityQueueSimulatorTester {
 	private static double end;
 	private static ALHeapPQ alPQ;
 	private static UnsortedListPQ unsortL;
-	private static 	final int[]  maxNumberOfJobs = {100,1000,10000};
+	private static 	final int[]  maxNumberOfJobs = {100,1000,10000,100000};
 	
 	
 	public static Job[] fillArray(int maxJobNum) {
@@ -94,6 +94,10 @@ public static void printUnReport(String file,int j,UnsortedListPQ al) {
 		
 		for (int e : maxNumberOfJobs) {
 			Job[] jobInputArray=fillArray(e);
+			Job[] copy= new Job[e+1];
+			for(int i =1;i<e+1;i++) {
+				copy[i]=new Job(jobInputArray[i]);
+			}
 			Timer.reset();
 			ini();
 			alPQ=new ALHeapPQ(jobInputArray);
@@ -108,16 +112,12 @@ public static void printUnReport(String file,int j,UnsortedListPQ al) {
 			end=System.currentTimeMillis();
 			printReport("heapQueue",e,alPQ);
 			
-		}
+	
 		System.out.println("---------------------------------------- Unsorted List Priority Queue-------------------------------------");
-
-		for(int e : maxNumberOfJobs) {
-
-			
-			Job[] jobInputArray=fillArray(e);
 			Timer.reset();
+			Timer.resetDone();
 			ini();
-			unsortL=new UnsortedListPQ(jobInputArray);
+			unsortL=new UnsortedListPQ(copy);
 			start=System.currentTimeMillis();
 			while(unsortL.size()!=0) {
 			unsortExecute();
